@@ -5,6 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.util.FusedLocationSource;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
@@ -15,11 +21,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         MapFragment mapFragment= (MapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
     @Override
-    public void OnMapReady(@NonNull NaverMap naverMap) {
-        //FusedLocationSource locationSource = new FusedLocationSource{};
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        //FusedLocationSource locationSource = new FusedLocationSource{this, 100};
         //naverMap.setLocationSource(locationSource);
         //UiSettings uiSettings = naverMap.getUiSettings();
-        //uiSettings.setLocationButtonEnable(true);
+        //uiSettings.setLocationButtonEnabled(true);
     }
 }
