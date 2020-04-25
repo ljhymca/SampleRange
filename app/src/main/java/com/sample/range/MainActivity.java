@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             getSupportFragmentManager().beginTransaction().add(R.id.map, mapFragment).commit();
 
         }
+        mapFragment.getMapAsync(this);
 
         Utmk utmk = new Utmk(953935,1952044.1);
         LatLng latLng = utmk.toLatLng();
@@ -42,10 +43,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-//    @UiThread
-//    @Override
+    @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-
+        naverMap.setOnMapClickListener((point, coord) ->
+            Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show());
 
         
 
