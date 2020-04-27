@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.overlay.CircleOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
@@ -46,13 +48,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         Marker marker2 = new Marker();
-        marker2.setPosition(new LatLng(12, 44));
-        marker2.setMap(naverMap);
+        marker2.setPosition(new LatLng(1, 1));//일단 마커 위치지정
+        marker2.setMap(naverMap);//마커 생성
+        CircleOverlay markerCircle = new CircleOverlay();
+
+
 
         naverMap.setOnMapClickListener((point, coord)-> { //지도 화면클릭시
                 Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show();
-                marker2.setPosition(new LatLng(coord.latitude, coord.longitude));
+                marker2.setPosition(new LatLng(coord.latitude, coord.longitude));//클릭 좌표로 마커 위치 이동
+                markerCircle.setCenter(coord);//원 중심을 선택한 위치로
+                markerCircle.setRadius(500);//원 반지름
+                markerCircle.setColor(Color.GREEN);
+
+                markerCircle.setMap(naverMap);
                 });
+
 //        FusedLocationSource locationSource = new FusedLocationSource(this, 100);
 //        naverMap.setLocationSource(locationSource);
 //        UiSettings uiSettings = naverMap.getUiSettings();
