@@ -46,12 +46,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         Marker marker2 = new Marker();
-        marker2.setPosition(new LatLng(37.763695, 126.281796));
+        marker2.setPosition(new LatLng(12, 44));
         marker2.setMap(naverMap);
 
-        naverMap.setOnMapClickListener((point, coord)->  //지도 화면클릭시
-                Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show());
-
+        naverMap.setOnMapClickListener((point, coord)-> { //지도 화면클릭시
+                Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show();
+                marker2.setPosition(new LatLng(coord.latitude, coord.longitude));
+                });
 //        FusedLocationSource locationSource = new FusedLocationSource(this, 100);
 //        naverMap.setLocationSource(locationSource);
 //        UiSettings uiSettings = naverMap.getUiSettings();
