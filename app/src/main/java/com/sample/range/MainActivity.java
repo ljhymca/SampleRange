@@ -6,7 +6,10 @@ import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.os.Bundle;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
@@ -20,11 +23,14 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+    SeekBar sizeBar;
+    TextView sizeBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         MapFragment mapFragment= (MapFragment)getSupportFragmentManager().findFragmentById(R.id.map);//지도 객체 생성
 
@@ -40,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //
 //        Toast.makeText(this,"위도: "+latLng.latitude + "경도: " +latLng.longitude,
 //                Toast.LENGTH_LONG).show();//들어갔을때 위도 경도 표시
-
-
     }
 
 
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Marker marker2 = new Marker();
         marker2.setPosition(new LatLng(1, 1));//일단 마커 위치지정
         marker2.setMap(naverMap);//마커 생성
-        CircleOverlay markerCircle = new CircleOverlay();
+        CircleOverlay markerCircle = new CircleOverlay();//원 생성
 
 
 
@@ -59,8 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 marker2.setPosition(new LatLng(coord.latitude, coord.longitude));//클릭 좌표로 마커 위치 이동
                 markerCircle.setCenter(coord);//원 중심을 선택한 위치로
                 markerCircle.setRadius(500);//원 반지름
-                markerCircle.setColor(Color.GREEN);
-
+                markerCircle.setColor(0x4000FFFF);//불투명도 지정
                 markerCircle.setMap(naverMap);
                 });
 
