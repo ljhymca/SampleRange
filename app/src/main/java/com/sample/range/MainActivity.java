@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 markerCircle.setColor(0x4000FFFF);//불투명도 지정
                 markerCircle.setMap(naverMap);
                 System.out.println(coord.latitude);
-                System.out.println(coord.longitude);//로그로 위도 경도 출력
+                System.out.println(coord.longitude);//로그로 위도 경도 출력 test
                 });
 
 //        FusedLocationSource locationSource = new FusedLocationSource(this, 100);
