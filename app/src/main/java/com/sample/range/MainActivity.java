@@ -25,7 +25,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     SeekBar sizeBar;
     TextView sizeBarView;
-
+    int A = 500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show();
                 marker2.setPosition(new LatLng(coord.latitude, coord.longitude));//클릭 좌표로 마커 위치 이동
                 markerCircle.setCenter(coord);//원 중심을 선택한 위치로
-                markerCircle.setRadius(500);//원 반지름
+                markerCircle.setRadius(A);//원 반지름
                 markerCircle.setColor(0x4000FFFF);//불투명도 지정
                 markerCircle.setMap(naverMap);
                 System.out.println(coord.latitude);
-                System.out.println(coord.longitude);//로그로 위도 경도 출력 test 
+                System.out.println(coord.longitude);//로그로 위도 경도 출력 test
                 });
 
 //        FusedLocationSource locationSource = new FusedLocationSource(this, 100);

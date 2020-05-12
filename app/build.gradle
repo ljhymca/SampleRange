@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.sample.range"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.naver.maps:map-sdk:3.8.0'//네이버 지도
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
 
 
 }
