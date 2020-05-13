@@ -15,6 +15,12 @@
         android:min= "150"
         />
 
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="등록" />
+
     <TextView
         android:id="@+id/sizeBarView"
         android:layout_width="match_parent"
