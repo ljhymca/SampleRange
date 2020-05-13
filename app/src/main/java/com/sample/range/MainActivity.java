@@ -8,10 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Utmk;
 import com.naver.maps.map.MapFragment;
@@ -23,13 +27,19 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+
     SeekBar sizeBar;
     TextView sizeBarView;
-    int A = 500;
+    Button sendbutton;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         MapFragment mapFragment= (MapFragment)getSupportFragmentManager().findFragmentById(R.id.map);//지도 객체 생성
@@ -59,15 +69,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         naverMap.setOnMapClickListener((point, coord)-> { //지도 화면클릭시
-                Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show();
-                marker2.setPosition(new LatLng(coord.latitude, coord.longitude));//클릭 좌표로 마커 위치 이동
-                markerCircle.setCenter(coord);//원 중심을 선택한 위치로
-                markerCircle.setRadius(A);//원 반지름
-                markerCircle.setColor(0x4000FFFF);//불투명도 지정
-                markerCircle.setMap(naverMap);
-                System.out.println(coord.latitude);
-                System.out.println(coord.longitude);//로그로 위도 경도 출력 test
-                });
+            Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show();
+            marker2.setPosition(new LatLng(coord.latitude, coord.longitude));//클릭 좌표로 마커 위치 이동
+            markerCircle.setCenter(coord);//원 중심을 선택한 위치로
+            markerCircle.setRadius(500);//원 반지름
+            markerCircle.setColor(0x4000FFFF);//불투명도 지정
+            markerCircle.setMap(naverMap);
+
+
+            sendbutton = (Button) findViewById(R.id.sendButton);
+
+            sendbutton.setOnClickListener(new Button.OnClickListener(){
+                public void onClick(View v){//버튼 클릭시 현재 위도 경도 값 전송
+                    databaseReference.child("latitude").push().setValue(coord.latitude);
+                    databaseReference.child("longitude").push().setValue(coord.longitude);
+                }
+            });
+        });
 
 //        FusedLocationSource locationSource = new FusedLocationSource(this, 100);
 //        naverMap.setLocationSource(locationSource);
@@ -75,4 +93,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        uiSettings.setLocationButtonEnabled(true);
 
     }
+
+
 }
