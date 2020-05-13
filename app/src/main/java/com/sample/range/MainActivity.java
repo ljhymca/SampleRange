@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             sendbutton.setOnClickListener(new Button.OnClickListener(){
                 public void onClick(View v){//버튼 클릭시 현재 위도 경도 값 전송
-                    databaseReference.child("latitude").push().setValue(coord.latitude);
-                    databaseReference.child("longitude").push().setValue(coord.longitude);
+                    databaseReference.child("latitude").push().setValue(coord.latitude);//위도
+                    databaseReference.child("longitude").push().setValue(coord.longitude);//경도
                 }
             });
         });
