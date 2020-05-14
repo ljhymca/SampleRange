@@ -34,7 +34,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    SeekBar sizeBar;
     TextView sizeBarView;
     Button sendbutton;
 
@@ -71,14 +70,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         marker2.setMap(naverMap);//마커 생성
         CircleOverlay markerCircle = new CircleOverlay();//원 생성
         //SeekBar할당
-        int abc = 500;
+        SeekBar sizeBar = (SeekBar) findViewById(R.id.sizeBar);
+        int abc = 100;
+        final TextView sizeBarView =(TextView)findViewById(R.id.sizeBarView);
+        sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                sizeBarView.setText(""+progress);
+                markerCircle.setRadius(progress);//원 반지름
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+        });
 
         naverMap.setOnMapClickListener((point, coord)-> { //지도 화면클릭시
             Toast.makeText(this, getString(R.string.format_map_click, coord.latitude, coord.longitude), Toast.LENGTH_SHORT).show();
+            String progress = sizeBarView.getText().toString();
+            final long range = Long.parseLong(progress);
             marker2.setPosition(new LatLng(coord.latitude, coord.longitude));//클릭 좌표로 마커 위치 이동
             markerCircle.setCenter(coord);//원 중심을 선택한 위치로
-            markerCircle.setRadius(abc);//원 반지름
+            markerCircle.setRadius(range);//원 반지름
             markerCircle.setColor(0x4000FFFF);//불투명도 지정
             markerCircle.setMap(naverMap);
             sendbutton = (Button) findViewById(R.id.sendButton);
@@ -91,10 +111,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 public void onClick(View v){//버튼 클릭시 현재 위도 경도 값 전송
                     databaseReference.child(formatDate).child("latitude").push().setValue(coord.latitude);//위도
                     databaseReference.child(formatDate).child("longitude").push().setValue(coord.longitude);//경도
-                    //원 범위
+                    databaseReference.child(formatDate).child("range").push().setValue(range);//원 범위
                     //id 값 넣을 자리
                 }
             });
+
+
         });
 
 //        FusedLocationSource locationSource = new FusedLocationSource(this, 100);
