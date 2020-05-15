@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         CircleOverlay markerCircle = new CircleOverlay();//원 생성
         //SeekBar할당
         SeekBar sizeBar = (SeekBar) findViewById(R.id.sizeBar);
-        int abc = 100;
         final TextView sizeBarView =(TextView)findViewById(R.id.sizeBarView);
+
         sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-
         });
 
         naverMap.setOnMapClickListener((point, coord)-> { //지도 화면클릭시
