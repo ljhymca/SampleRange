@@ -8,6 +8,7 @@ import android.app.Activity;
 
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static Handler mHandler;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,22 +117,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markerCircle.getBounds();
             Log.e("바운스", ""+ markerCircle.getBounds());
 
-
             sendbutton.setOnClickListener(new Button.OnClickListener(){
                 public void onClick(View v){//버튼 클릭시 현재 위도 경도 값 전송
-                    //databaseReference.child("id").child(formatDate).child("latitude").setValue(coord.latitude);//위도
-                    //databaseReference.child("id").child(formatDate).child("longitude").setValue(coord.longitude);//경도
-                    //databaseReference.child("id").child(formatDate).child("range").setValue(range);//원 범위
-                    databaseReference.child("id").child(formatDate).child("southwest").setValue(markerCircle.getBounds().getSouthWest());
-                    databaseReference.child("id").child(formatDate).child("northeast").setValue(markerCircle.getBounds().getNorthEast());
+                    databaseReference.child("id").child(formatDate).child("latitude").setValue(coord.latitude);//위도
+                    databaseReference.child("id").child(formatDate).child("longitude").setValue(coord.longitude);//경도
+                    databaseReference.child("id").child(formatDate).child("range").setValue(range);
+
 
                     //id 값 넣을 자리
                 }
             });
         });
-//        FusedLocationSource locationSource = new FusedLocationSource(this, 100);
-//        naverMap.setLocationSource(locationSource);
-//        UiSettings uiSettings = naverMap.getUiSettings();
-//        uiSettings.setLocationButtonEnabled(true);
     }
+
+
 }
